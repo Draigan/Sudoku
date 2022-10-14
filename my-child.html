@@ -99,9 +99,6 @@
                 this.resetSudoku();
                 this.mainAlgoRunner();
                 this.gridDisplay();
-
-
-
             }
 
 
@@ -160,9 +157,8 @@
                 return this.smallest;
             }
 
-
-
-            mainAlgoRunner() {
+                // Basically run the algo 81x
+                mainAlgoRunner() {
                 this.mainAlgo(this.gridRow[4][4]);
                 this.mainAlgo(this.gridRow[0][4]);
                 this.mainAlgo(this.gridRow[1][4]);
@@ -176,11 +172,12 @@
 
             mainAlgo(square) {
 
-
                 let { val, row, col, section } = square;
                 let number;
                 this.breaker = 0;
 
+                //do while loop contains a breaker that checks to see if im stuck in recursion - concept could be improved upon, Im sure, 
+                //I just dont know what that would entail.
                 do {
                     number = Math.floor(Math.random() * 9);
                     if (this.breaker == 190) {
@@ -215,7 +212,8 @@
 
                 }
 
-                //dots are for the val.length because we use it somewhere else.
+                //dots are for the val.length because we use it somewhere else, but this is basically just removing 
+                //it from the flow of the program.
                 square.val = ".............";
                 return
             }
@@ -305,8 +303,8 @@
             gridDisplay() {
                 for (let i = 0; i < 9; i++) {
                     for (let j = 0; j < 9; j++) {
-                        this.gridElementArray[i][j].innerHTML = "<center>" + this.gridRow[i][j].fin + "<BR>" + this.gridRow[i][j].val
-                    }
+                        this.gridElementArray[i][j].innerHTML = "<center>" + this.gridRow[i][j].fin + "<BR>" + this.gridRow[i][j].val; 
+                    }                                                                                                                  
                 }
             }
             AddOneToEverySquare() {
