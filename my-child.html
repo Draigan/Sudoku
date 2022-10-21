@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <style>
-        * {
-            box-sizing: border-box;
-        }
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
 
-        .gridElement {
-            width: 360px;
-            height: 360px;
-            display: flex;
-            flex-wrap: wrap;
-        }
+    .gridElement {
+      width: 360px;
+      height: 360px;
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-        .gridElement div {
-            font-size: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: rgb(194, 194, 194);
-            width: 40px;
-            height: 40px;
-            background: rgb(56, 56, 56);
-            border: 1px solid black;
-        }
-    </style>
-    </head>
+    .gridElement div {
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgb(194, 194, 194);
+      width: 40px;
+      height: 40px;
+      background: rgb(56, 56, 56);
+      border: 1px solid black;
+    }
+  </style>
+</head>
 
-    <body>
-        <div id="gridElement1" class="gridElement"></div>
-        <BR><BR>
-        <button onclick="sudoku.reset(),findPerfect(), sudoku.addOneToEverySquare(), sudoku.gridDisplay()"> Reroll</button>
-        <script src="sudoku.js">
-        </script>
-    </body>
+<body>
+  <div id="gridElement1" class="gridElement"></div>
+  <BR><BR>
+  <button id="reroll"> Reroll</button>
+  <script src="sudoku.mjs" type="module">
+  </script>
+</body>
 
 </html>
