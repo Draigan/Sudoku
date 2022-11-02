@@ -19,16 +19,22 @@
       flex-wrap: wrap;
     }
 
+
     .gridElement div {
       font-size: 14px;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: rgb(194, 194, 194);
+      font-weight: 700;
+      color: black;
       width: 40px;
       height: 40px;
-      background: rgb(56, 56, 56);
+      background: lightgray;
       border: 1px solid black;
+    }
+
+    .highlightstyle {
+      background-color: yellow !important;
     }
   </style>
 </head>
@@ -37,7 +43,7 @@
   <div id="gridElement1" class="gridElement"></div>
   <BR><BR>
   <button id="reroll"> Reroll</button>
-  <script src="sudoku.mjs" type="module">
+  <script src="main.mjs" type="module">
   </script>
 </body>
 

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        .gridElement {
+            width: 360px;
+            height: 360px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .gridElement div {
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(194, 194, 194);
+            width: 40px;
+            height: 40px;
+            background: rgb(56, 56, 56);
+            border: 1px solid black;
+        }
+    </style>
+    </head>
+
+    <body>
+        <div id="gridElement" class="gridElement"></div>
+        <BR><BR>
+
+        <script>
+
+
+const grid = [
+[0,0,0,0,0,9,0,0,0],
+[0,0,0,3,0,0,4,0,2],
+[0,6,0,5,0,0,3,0,7],
+[0,9,0,0,5,0,0,2,0],
+[2,0,0,6,0,0,0,0,0],
+[0,0,3,4,0,2,1,0,0],
+[5,3,1,2,0,6,0,0,0],
+[0,2,0,0,0,0,0,0,0],
+[0,0,0,0,0,8,0,7,0]
+];
+
+//grid[0][5] = 1
+
+//console.log(legal(5,0,1)) // returns false, should be true
+
+function legal(x,y,n){
+for (let i = 0 ; i < 9 ; i++){
+ 
+   if  (grid[x][i] == n) return false;
+   if (grid[i][y] == n) return false;
+ 
+}
+
+x0 = Math.floor((x/3)) * 3;
+y0 = Math.floor((y/3)) * 3;
+
+for (let i = 0; i < 3; i++){
+ for (let j = 0; j < 3; j++){
+if (grid[x0+i][y0+j] == n) return false; 
+}   
+}
+
+return true;
+}
+
+function solve(){
+    for (let x = 0; x < 9; x++){
+        for (let y = 0; y < 9; y++){
+        if (grid[x][y] == 0){
+            for (let n = 1; n < 10; n++ ){  
+                if (legal(x,y,n)){
+                    grid[x][y] = n;
+                        solve();
+                        grid[x][y] = 0;
+                       }                             
+                            }
+                            return 
+                                }
+                    
+    }
+
+ }
+
+}
+
+solve();
+console.log(grid.join('\n'))
+
+
+
+        </script>
+    </body>
+
+</html>
+
+def solve():
+        global grid
+        for y in range(9) :
+                for x in range(9) :
+                        if grid[y][x] == 0 :
+                                for n in range(1,10) :
+                                        if possible(y,x,n) :
+                                                grid[y][x] = n
+                                                solve()
+                                                grid[y][x] = 0
+                                return
+        print(np.matrix(grid) )
+        input("More?")
