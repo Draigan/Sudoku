@@ -1,14 +1,14 @@
 
 const grid = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  [0, 0, 0, 0, 0, 9, 0, 0, 0],
+  [0, 0, 0, 3, 0, 0, 4, 0, 2],
+  [0, 6, 0, 5, 0, 0, 3, 0, 7],
+  [0, 9, 0, 0, 5, 0, 0, 2, 0],
+  [2, 0, 0, 6, 0, 0, 0, 0, 0],
+  [0, 0, 3, 4, 0, 2, 1, 0, 0],
+  [5, 3, 1, 2, 0, 6, 0, 0, 0],
+  [0, 2, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 8, 0, 7, 0]
 ];
 
 const newGrid = [
@@ -20,7 +20,7 @@ const newGrid = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0]
+  [0, 0, 0, 0, 0, 8, 0, 0, 0]
 ];
 
 function legal(x, y, n) {
@@ -31,8 +31,8 @@ function legal(x, y, n) {
 
   }
 
-  let x0 = Math.floor((x / 3)) * 3;
-  let y0 = Math.floor((y / 3)) * 3;
+  x0 = Math.floor((x / 3)) * 3;
+  y0 = Math.floor((y / 3)) * 3;
 
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
@@ -50,7 +50,7 @@ function backTrackerAlgo() {
         for (let n = 1; n < 10; n++) {
           if (legal(x, y, n)) {
             grid[x][y] = n;
-            backTrackerAlgo();
+            solve();
             grid[x][y] = 0;
           }
         }
@@ -71,13 +71,10 @@ function backTrackerAlgo() {
   }
 }
 
-export function solve(importedPuzzle) {
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      grid[i][j] = importedPuzzle[i][j];
-    }
-  }
+function solve() {
   backTrackerAlgo();
   return newGrid;
 }
-// console.log(newGrid.join('\n'))
+backTrackerAlgo();
+
+console.log(newGrid.join('\n'))

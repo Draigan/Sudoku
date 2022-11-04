@@ -1,8 +1,17 @@
 import * as solver from "/solver.mjs";
-
-const name = "john";
-solver.Hello(name);
-
+console.log(solver.solve(
+  [
+    [0, 0, 0, 0, 0, 9, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, 4, 0, 2],
+    [0, 6, 0, 5, 0, 0, 3, 0, 7],
+    [0, 9, 0, 0, 5, 0, 0, 2, 0],
+    [2, 0, 0, 6, 0, 0, 0, 0, 0],
+    [0, 0, 3, 4, 0, 2, 1, 0, 0],
+    [5, 3, 1, 2, 0, 6, 0, 0, 0],
+    [0, 2, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 8, 0, 7, 0]
+  ]
+));
 
 export class Sudoku {
   constructor(htmlElement) {
@@ -32,6 +41,10 @@ export class Sudoku {
     this.createGrid();
     this.sectionGrid();
     this.reRoll();
+    this.firstTry = true;
+    this.findPerfect();
+    this.addOneToEverySquare(); // I worked from 0 - 8 so this makes it 1 to 9
+    this.gridDisplay();
   }
 
 
@@ -99,8 +112,6 @@ export class Sudoku {
     }
     //Randomly pick one of those array objects
     this.smallest = smallestArray[Math.floor(Math.random() * smallestArray.length)];
-    console.log(smallestArray);
-    console.log(this.smallest)
     //Return it. Congrats we have picked a random object with the lowest value.
     return this.smallest;
   }
@@ -129,7 +140,6 @@ export class Sudoku {
     do {
       number = Math.floor(Math.random() * 9);
       if (this.breaker == 190) {
-        console.log("breaker")
         return
       } ++this.breaker
     }
@@ -165,6 +175,23 @@ export class Sudoku {
     return
   }
 
+  findPerfect() {
+    if (!this.firstTry) {
+      this.reset();
+      this.reRoll();
+
+    }
+
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+
+        if (this.gridRow[i][j].fin === null) {
+          this.firstTry = !this.firstTry;
+          return this.findPerfect();
+        }
+      }
+    }
+  }
   sectionGrid() {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
@@ -263,37 +290,3 @@ export class Sudoku {
   }
 }
 
-
-// //Algo works 50 percent of the time so we reRoll if its a fail.
-// let firstTry = true;
-
-// function
-//   findPerfect() {
-//   if (!firstTry) {
-//     sudoku.reset();
-//     sudoku.reRoll();
-
-//   }
-
-//   for (let i = 0; i < 9; i++) {
-//     for (let j = 0; j < 9; j++) {
-
-//       if (sudoku.gridRow[i][j].fin === null) {
-//         firstTry = !firstTry;
-//         return findPerfect();
-//       }
-//     }
-//   }
-// }
-
-// findPerfect();
-// sudoku.addOneToEverySquare(); // I worked from 0 - 8 so this makes it 1 to 9
-// sudoku.gridDisplay();
-
-// // Reroll button
-// document.getElementById("reroll").addEventListener('click', () => {
-//   sudoku.reset();
-//   findPerfect();
-//   sudoku.addOneToEverySquare();
-//   sudoku.gridDisplay();
-// })
