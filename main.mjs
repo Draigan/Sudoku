@@ -74,7 +74,7 @@ for (let i = 0; i < 9; i++) {
   }
 }
 // const keyBoard = document.querySelector('.keyboard');
-function currentCellCheck() {
+function keypressWrapAround() {
   if (currentCell[1] === -1) {
     currentCell[1] = 8
   }
@@ -94,7 +94,7 @@ highlight(currentCell[0], currentCell[1])
 document.body.addEventListener("keydown", function(event) {
   if (event.keyCode == 37) {
     currentCell = [currentCell[0], currentCell[1] - 1];
-    currentCellCheck();
+    keypressWrapAround();
     console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
@@ -102,21 +102,21 @@ document.body.addEventListener("keydown", function(event) {
   }
   if (event.keyCode == 39) {
     currentCell = [currentCell[0], currentCell[1] + 1];
-    currentCellCheck();
+    keypressWrapAround();
     console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
   }
   if (event.keyCode == 40) {
     currentCell = [currentCell[0] + 1, currentCell[1]];
-    currentCellCheck();
+    keypressWrapAround();
     console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
   }
   if (event.keyCode == 38) {
     currentCell = [currentCell[0] - 1, currentCell[1]];
-    currentCellCheck();
+    keypressWrapAround();
     console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
