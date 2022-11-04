@@ -80,7 +80,8 @@ export class Sudoku {
           section: null,
           col: null,
           row: i,
-          fin: null
+          fin: null,
+          unclickable: false
         }
       }
     }
