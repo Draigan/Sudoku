@@ -13,10 +13,11 @@
 
 
     .gridElement {
-      width: 360px;
-      height: 360px;
+      width: 364px;
+      height: 364px;
       display: flex;
       flex-wrap: wrap;
+      border: 2px solid black;
     }
 
 
@@ -31,6 +32,7 @@
       height: 40px;
       background: lightgray;
       border: 1px solid black;
+
       -webkit-user-select: none;
       /* Safari */
       -ms-user-select: none;
@@ -40,11 +42,19 @@
     }
 
     .highlightstyle {
-      background-color: yellow !important;
+      background-color: rgb(0, 125, 125) !important;
+    }
+
+    .borderbottom {
+      border-bottom: 2px solid black !important;
+    }
+
+    .borderright {
+      border-right: 2px solid black !important;
     }
 
     .centerhighlightstyle {
-      background-color: red !important;
+      background-color: #00b5b5 !important;
     }
   </style>
 </head>
@@ -53,7 +63,7 @@
   <div id="gridElement1" class="gridElement"></div>
   <BR><BR>
   <button id="reroll"> Reroll</button>
-  <script src="main.mjs" type="module">
+  <script src="interface.mjs" type="module">
   </script>
 </body>
 

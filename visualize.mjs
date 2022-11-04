@@ -1,31 +1,20 @@
 import { Sudoku } from "./sudoku.mjs";
-
-
-const sudoku = new Sudoku("gridElement1");
-
-
-// Reroll button
-document.getElementById("reroll").addEventListener('click', () => {
-  sudoku.reset();
-  sudoku.findPerfect();
-  sudoku.addOneToEverySquare();
-  sudoku.gridDisplay();
-})
+import * as main from "/main.mjs";
 //Highlights row col and section that a cell is apart of
 function highlight(x, y) {
 
-  sudoku.gridElementArray[x][y].classList.add("centerhighlightstyle");
+  main.sudoku.gridElementArray[x][y].classList.add("centerhighlightstyle");
   //Reset previous highlighted cells 
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
-      sudoku.gridElementArray[i][j].classList.remove("highlightstyle");
+      main.sudoku.gridElementArray[i][j].classList.remove("highlightstyle");
       // sudoku.gridElementArray[i][j].classList.add("centerhighlightstyle");
     }
   }
   //Highlight rows and cols 
   for (let i = 0; i < 9; i++) {
-    sudoku.gridElementArray[x][i].classList.add("highlightstyle");
-    sudoku.gridElementArray[i][y].classList.add("highlightstyle");
+    main.sudoku.gridElementArray[x][i].classList.add("highlightstyle");
+    main.sudoku.gridElementArray[i][y].classList.add("highlightstyle");
     //     // sudoku.gridRow[x][i].classList.add('highlightstyle');
     //     // if (sudoku.grid[i][y] == n) return false;
 
@@ -38,7 +27,7 @@ function highlight(x, y) {
 
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
-      sudoku.gridElementArray[x0 + i][y0 + j].classList.add("highlightstyle");
+      main.sudoku.gridElementArray[x0 + i][y0 + j].classList.add("highlightstyle");
 
     }
   }
@@ -49,31 +38,30 @@ function removeHighlight() {
 
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
-      sudoku.gridElementArray[i][j].classList.remove("centerhighlightstyle");
+      main.sudoku.gridElementArray[i][j].classList.remove("centerhighlightstyle");
     }
   }
 }
 for (let i = 0; i < 9; i++) {
   for (let j = 0; j < 9; j++) {
-    sudoku.gridElementArray[i][j].addEventListener("mouseover", () => {
-      highlight(sudoku.gridRow[i][j].row, sudoku.gridRow[i][j].col);
+    main.sudoku.gridElementArray[i][j].addEventListener("mouseover", () => {
+      highlight(main.sudoku.gridRow[i][j].row, main.sudoku.gridRow[i][j].col);
     });
 
 
-    sudoku.gridElementArray[i][j].addEventListener("click", () => {
-      if (sudoku.gridRow[i][j].unclickable) return;
-      if (sudoku.gridRow[i][j].fin >= 9) {
-        sudoku.gridRow[i][j].fin = 0;
+    main.sudoku.gridElementArray[i][j].addEventListener("click", () => {
+      if (main.sudoku.gridRow[i][j].unclickable) return;
+      if (main.sudoku.gridRow[i][j].fin >= 9) {
+        main.sudoku.gridRow[i][j].fin = 0;
       }
-      console.log(++sudoku.gridRow[i][j].fin)
-      sudoku.gridDisplay();
+      console.log(++main.sudoku.gridRow[i][j].fin)
+      main.sudoku.gridDisplay();
     });
-    sudoku.gridElementArray[i][j].addEventListener("mouseout", () => {
-      removeHighlight(sudoku.gridRow[i][j].row, sudoku.gridRow[i][j].col);
+    main.sudoku.gridElementArray[i][j].addEventListener("mouseout", () => {
+      removeHighlight(main.sudoku.gridRow[i][j].row, main.sudoku.gridRow[i][j].col);
     });
   }
 }
-// const keyBoard = document.querySelector('.keyboard');
 function keypressWrapAround() {
   if (currentCell[1] === -1) {
     currentCell[1] = 8
@@ -123,40 +111,40 @@ document.body.addEventListener("keydown", function(event) {
   }
 
   if (event.keyCode == 49) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 1;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 1;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 50) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 2;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 2;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 51) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 3;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 3;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 52) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 4;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 4;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 53) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 5;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 5;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 54) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 6;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 6;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 55) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 7;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 7;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 56) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 8;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 8;
+    main.sudoku.gridDisplay();
   }
   if (event.keyCode == 57) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 9;
-    sudoku.gridDisplay();
+    main.sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 9;
+    main.sudoku.gridDisplay();
   }
 });
 
