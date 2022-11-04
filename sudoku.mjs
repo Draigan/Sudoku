@@ -1,17 +1,17 @@
 import * as solver from "/solver.mjs";
-console.log(solver.solve(
-  [
-    [0, 0, 0, 0, 0, 9, 0, 0, 0],
-    [0, 0, 0, 3, 0, 0, 4, 0, 2],
-    [0, 6, 0, 5, 0, 0, 3, 0, 7],
-    [0, 9, 0, 0, 5, 0, 0, 2, 0],
-    [2, 0, 0, 6, 0, 0, 0, 0, 0],
-    [0, 0, 3, 4, 0, 2, 1, 0, 0],
-    [5, 3, 1, 2, 0, 6, 0, 0, 0],
-    [0, 2, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 8, 0, 7, 0]
-  ]
-));
+// console.log(solver.solve(
+//   [
+//     [0, 0, 0, 0, 0, 9, 0, 0, 0],
+//     [0, 0, 0, 3, 0, 0, 4, 0, 2],
+//     [0, 6, 0, 5, 0, 0, 3, 0, 7],
+//     [0, 9, 0, 0, 5, 0, 0, 2, 0],
+//     [2, 0, 0, 6, 0, 0, 0, 0, 0],
+//     [0, 0, 3, 4, 0, 2, 1, 0, 0],
+//     [5, 3, 1, 2, 0, 6, 0, 0, 0],
+//     [0, 2, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 8, 0, 7, 0]
+//   ]
+// ));
 
 export class Sudoku {
   constructor(htmlElement) {
@@ -38,12 +38,13 @@ export class Sudoku {
     this.colEight = [];
     this.smallest = { val: "00000000000" };
     this.breaker = 0;
+    this.firstTry = true;
     this.createGrid();
     this.sectionGrid();
     this.reRoll();
-    this.firstTry = true;
     this.findPerfect();
     this.addOneToEverySquare(); // I worked from 0 - 8 so this makes it 1 to 9
+    console.log(solver.solve(this.gridRow))
     this.gridDisplay();
   }
 
