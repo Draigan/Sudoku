@@ -15,7 +15,24 @@ import * as solver from "/solver.mjs";
 
 export class Sudoku {
   constructor(htmlElement) {
-    this.gridElement = document.getElementById(htmlElement);
+
+    document.getElementById(htmlElement).classList.add("container");
+    this.gridElement = document.getElementById(htmlElement).appendChild(document.createElement('div'));
+    this.gridElement.classList.add("grid-cell");
+    this.dashBoard = document.getElementById(htmlElement).appendChild(document.createElement('div'));
+    this.buttonArray = [];
+    for (let i = 0; i < 9; i++) {
+      this.buttonArray.push({
+        name: `button${i}`,
+        HTMLElement: this.dashBoard.appendChild(document.createElement('div'))
+      })
+      this.buttonArray[i].HTMLElement.classList.add("button");
+      this.buttonArray[i].HTMLElement.innerHTML = i + 1;
+
+    }
+    this.dashBoard.classList.add("dashboard");
+
+    // this.gridElement = document.getElementById(htmlElement);
     this.gridElementArray = [];
     this.gridRow = [];
     this.sectionZero = [];
@@ -47,7 +64,6 @@ export class Sudoku {
     console.log(solver.solve(this.gridRow))
     this.gridDisplay();
   }
-
 
   reset() {
     for (let i = 0; i < 9; i++) {

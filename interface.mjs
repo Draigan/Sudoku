@@ -54,22 +54,20 @@ function removeHighlight() {
 }
 for (let i = 0; i < 9; i++) {
   for (let j = 0; j < 9; j++) {
-    sudoku.gridElementArray[i][j].addEventListener("mouseover", () => {
-      highlight(sudoku.gridRow[i][j].row, sudoku.gridRow[i][j].col);
-    });
-
-
     sudoku.gridElementArray[i][j].addEventListener("click", () => {
       if (sudoku.gridRow[i][j].unclickable) return;
+      removeHighlight(i, j);
+      highlight(i, j);
+      currentCell = [i, j];
       if (sudoku.gridRow[i][j].fin >= 9) {
         sudoku.gridRow[i][j].fin = 0;
       }
       console.log(++sudoku.gridRow[i][j].fin)
       sudoku.gridDisplay();
     });
-    sudoku.gridElementArray[i][j].addEventListener("mouseout", () => {
-      removeHighlight(sudoku.gridRow[i][j].row, sudoku.gridRow[i][j].col);
-    });
+    // sudoku.gridElementArray[i][j].addEventListener("mouseout", () => {
+    //   removeHighlight(sudoku.gridRow[i][j].row, sudoku.gridRow[i][j].col);
+    // });
   }
 }
 // const keyBoard = document.querySelector('.keyboard');
