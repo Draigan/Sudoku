@@ -20,19 +20,50 @@ export class Sudoku {
     this.gridElement = document.getElementById(htmlElement).appendChild(document.createElement('div'));
     this.gridElement.classList.add("grid-cell");
     this.dashBoard = document.getElementById(htmlElement).appendChild(document.createElement('div'));
+    // Draw buttons
     this.buttonArray = [];
     for (let i = 0; i < 9; i++) {
       this.buttonArray.push({
         name: `button${i}`,
         HTMLElement: this.dashBoard.appendChild(document.createElement('div'))
       })
+
+
       this.buttonArray[i].HTMLElement.classList.add("button");
       this.buttonArray[i].HTMLElement.innerHTML = i + 1;
 
     }
+    this.buttonArray.push({
+      name: `notes`,
+      HTMLElement: this.dashBoard.appendChild(document.createElement('div'))
+    });
+    this.buttonArray.push({
+      name: `erase`,
+      HTMLElement: this.dashBoard.appendChild(document.createElement('div'))
+    });
+    this.buttonArray[9].HTMLElement.classList.add("buttoncontrol");
+    this.buttonArray[9].HTMLElement.innerHTML = "Notes";
     this.dashBoard.classList.add("dashboard");
 
-    // this.gridElement = document.getElementById(htmlElement);
+    this.buttonArray[10].HTMLElement.classList.add("buttoncontrol");
+    this.buttonArray[10].HTMLElement.innerHTML = "Erase";
+    this.dashBoard.classList.add("dashboard");
+
+    // Draw note cells
+    this.noteGrid = document.createElement("div");
+    this.noteGridArray = [];
+    document.body.appendChild(this.noteGrid)
+    this.noteGrid.classList.add("notegrid");
+    console.log(document.querySelector("div.notegrid"))
+
+    for (let i = 0; i < 9; i++) {
+      this.noteGridArray.push({
+        name: `note${i}`,
+        HTMLElement: this.noteGrid.appendChild(document.createElement("div"))
+      });
+      this.noteGridArray[i].HTMLElement.classList.add("notegridcell");
+    }
+    // console.log(document.querySelector("div.notegrid"))
     this.gridElementArray = [];
     this.gridRow = [];
     this.sectionZero = [];

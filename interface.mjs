@@ -1,8 +1,20 @@
 import { Sudoku } from "./sudoku.mjs";
 
 const sudoku = new Sudoku("gridElement1");
-
-
+let notes = false;
+const dashboardButton = document.querySelectorAll("div.button");
+dashboardButton.forEach((item) => {
+  item.addEventListener("click", () => {
+    if (!notes) {
+      sudoku.gridRow[currentCell[0]][currentCell[1]].fin = item.innerHTML;
+      sudoku.gridDisplay();
+    }
+  })
+})
+const noteButton = document.querySelector(".buttoncontrol");
+noteButton.addEventListener("click", () => {
+  console.log("HEY")
+});
 // Reroll button
 document.getElementById("reroll").addEventListener('click', () => {
   sudoku.reset();
@@ -62,7 +74,6 @@ for (let i = 0; i < 9; i++) {
       if (sudoku.gridRow[i][j].fin >= 9) {
         sudoku.gridRow[i][j].fin = 0;
       }
-      console.log(++sudoku.gridRow[i][j].fin)
       sudoku.gridDisplay();
     });
     // sudoku.gridElementArray[i][j].addEventListener("mouseout", () => {
@@ -92,7 +103,6 @@ document.body.addEventListener("keydown", function(event) {
   if (event.keyCode == 37) {
     currentCell = [currentCell[0], currentCell[1] - 1];
     keypressWrapAround();
-    console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
 
@@ -100,21 +110,18 @@ document.body.addEventListener("keydown", function(event) {
   if (event.keyCode == 39) {
     currentCell = [currentCell[0], currentCell[1] + 1];
     keypressWrapAround();
-    console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
   }
   if (event.keyCode == 40) {
     currentCell = [currentCell[0] + 1, currentCell[1]];
     keypressWrapAround();
-    console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
   }
   if (event.keyCode == 38) {
     currentCell = [currentCell[0] - 1, currentCell[1]];
     keypressWrapAround();
-    console.log(currentCell)
     removeHighlight();
     highlight(currentCell[0], currentCell[1]);
   }
