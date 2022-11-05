@@ -1,20 +1,36 @@
 import { Sudoku } from "./sudoku.mjs";
+import { Notes } from "./sudoku.mjs";
+const noteClassArray = [];
 
+for (let i = 0; i < 9; i++) {
+  noteClassArray.push([])
+  for (let j = 0; j < 9; j++) {
+    noteClassArray[i].push(new Notes(i, j))
+  }
+}
+
+
+const notes = new Notes();
 const sudoku = new Sudoku("gridElement1");
-let notes = false;
+let noteState = false;
 const dashboardButton = document.querySelectorAll("div.button");
 dashboardButton.forEach((item) => {
   item.addEventListener("click", () => {
-    if (!notes) {
+    if (!noteState) {
       sudoku.gridRow[currentCell[0]][currentCell[1]].fin = item.innerHTML;
       sudoku.gridDisplay();
     }
   })
 })
+
+//Note Button
 const noteButton = document.querySelector(".buttoncontrol");
 noteButton.addEventListener("click", () => {
-  console.log("HEY")
+
+  noteButton.classList.toggle("-yellow");
+  noteState = !noteState;
 });
+
 // Reroll button
 document.getElementById("reroll").addEventListener('click', () => {
   sudoku.reset();
@@ -71,9 +87,6 @@ for (let i = 0; i < 9; i++) {
       removeHighlight(i, j);
       highlight(i, j);
       currentCell = [i, j];
-      if (sudoku.gridRow[i][j].fin >= 9) {
-        sudoku.gridRow[i][j].fin = 0;
-      }
       sudoku.gridDisplay();
     });
     // sudoku.gridElementArray[i][j].addEventListener("mouseout", () => {
@@ -127,40 +140,79 @@ document.body.addEventListener("keydown", function(event) {
   }
 
   if (event.keyCode == 49) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 1;
-    sudoku.gridDisplay();
+    if (!noteState) {
+      sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 1;
+      sudoku.gridDisplay();
+    }
+    if (noteState && noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].active) {
+      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].HTMLElement.innerHTML = "";
+
+    }
+    if (noteState && !noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].active) {
+      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].HTMLElement.innerHTML = 1;
+    }
+    if (noteState) {
+      noteClassArray[currentCell[0]][currentCell[1]]
+        .noteGridArray[0].active = !noteClassArray[currentCell[0]][currentCell[1]]
+          .noteGridArray[0].active;
+    }
+
   }
   if (event.keyCode == 50) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 2;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell1").innerHTML = 2;
+    }
   }
   if (event.keyCode == 51) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 3;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell2").innerHTML = 3;
+    }
   }
   if (event.keyCode == 52) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 4;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell3").innerHTML = 4;
+    }
   }
   if (event.keyCode == 53) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 5;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell4").innerHTML = 5;
+    }
   }
   if (event.keyCode == 54) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 6;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell5").innerHTML = 6;
+    }
   }
   if (event.keyCode == 55) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 7;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell6").innerHTML = 7;
+    }
   }
   if (event.keyCode == 56) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 8;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell7").innerHTML = 8;
+    }
   }
   if (event.keyCode == 57) {
     sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 9;
     sudoku.gridDisplay();
+    if (noteState) {
+      document.querySelector(".cell8").innerHTML = 9;
+    }
   }
 });
 

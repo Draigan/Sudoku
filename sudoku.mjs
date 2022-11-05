@@ -12,7 +12,29 @@ import * as solver from "/solver.mjs";
 //     [0, 0, 0, 0, 0, 8, 0, 7, 0]
 //   ]
 // ));
+export class Notes {
 
+  // Draw note cells
+  constructor(_i, _j) {
+    this.id = [_i, _j];
+    this.noteGrid = document.createElement("div");
+    this.noteGridArray = [];
+    document.body.appendChild(this.noteGrid)
+    this.noteGrid.classList.add("notegrid");
+    console.log(document.querySelector("div.notegrid"))
+
+    for (let i = 0; i < 9; i++) {
+      this.noteGridArray.push({
+        name: `note${i}`,
+        active: false,
+        HTMLElement: this.noteGrid.appendChild(document.createElement("div"))
+      });
+      this.noteGridArray[i].HTMLElement.classList.add("notegridcell");
+      this.noteGridArray[i].HTMLElement.classList.add(`cell${i}`);
+
+    }
+  }
+}
 export class Sudoku {
   constructor(htmlElement) {
 
@@ -49,20 +71,6 @@ export class Sudoku {
     this.buttonArray[10].HTMLElement.innerHTML = "Erase";
     this.dashBoard.classList.add("dashboard");
 
-    // Draw note cells
-    this.noteGrid = document.createElement("div");
-    this.noteGridArray = [];
-    document.body.appendChild(this.noteGrid)
-    this.noteGrid.classList.add("notegrid");
-    console.log(document.querySelector("div.notegrid"))
-
-    for (let i = 0; i < 9; i++) {
-      this.noteGridArray.push({
-        name: `note${i}`,
-        HTMLElement: this.noteGrid.appendChild(document.createElement("div"))
-      });
-      this.noteGridArray[i].HTMLElement.classList.add("notegridcell");
-    }
     // console.log(document.querySelector("div.notegrid"))
     this.gridElementArray = [];
     this.gridRow = [];
