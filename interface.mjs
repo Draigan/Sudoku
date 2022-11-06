@@ -33,17 +33,27 @@ for (let i = 0; i < 9; i++) {
     cellElement.appendChild(sudoku.gridNumberArray[i][j]);
   }
 }
+function noteToggle() {
+
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      if (noteState) {
+        let noteGrid = document.querySelector(`div.notegrid${currentCell[0]}${currentCell[1]}`);
+        sudoku.gridNumberArray[currentCell[0]][currentCell[1]].classList.add("hidden");
+        noteGrid.classList.remove("hidden");
+      }
+      if (!noteState) {
+        let noteGrid = document.querySelector(`div.notegrid${currentCell[0]}${currentCell[1]}`);
+        sudoku.gridNumberArray[currentCell[0]][currentCell[1]].classList.remove("hidden");
+        noteGrid.classList.add("hidden");
+      }
+    }
+  }
+}
 //Note Button
 const noteButton = document.querySelector(".buttoncontrol");
 noteButton.addEventListener("click", () => {
 
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      let noteGrid = document.querySelector(`div.notegrid${currentCell[0]}${currentCell[1]}`);
-      sudoku.gridNumberArray[currentCell[0]][currentCell[1]].classList.toggle("hidden");
-      noteGrid.classList.toggle("hidden");
-    }
-  }
   noteButton.classList.toggle("-yellow");
   noteState = !noteState;
 });
@@ -128,6 +138,30 @@ function keypressWrapAround() {
   }
 }
 let currentCell = [4, 4];
+
+function numberKeyDown(number, pos) {
+
+  if (!noteState) {
+    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = number;
+    sudoku.gridDisplay();
+    noteToggle();
+  }
+  if (noteState && noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[pos].active) {
+    noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[pos].HTMLElement.innerHTML = "";
+
+  }
+  if (noteState && !noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[pos].active) {
+    noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[pos].HTMLElement.innerHTML = number;
+  }
+  if (noteState) {
+    noteClassArray[currentCell[0]][currentCell[1]]
+      .noteGridArray[pos].active = !noteClassArray[currentCell[0]][currentCell[1]]
+        .noteGridArray[pos].active;
+    noteToggle();
+  }
+
+}
+
 highlight(currentCell[0], currentCell[1])
 document.body.addEventListener("keydown", function(event) {
   if (event.keyCode == 37) {
@@ -157,93 +191,33 @@ document.body.addEventListener("keydown", function(event) {
   }
 
   if (event.keyCode == 49) {
-    if (!noteState) {
-      sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 1;
-      sudoku.gridDisplay();
-    }
-    if (noteState && noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].active) {
-      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].HTMLElement.innerHTML = "";
-
-    }
-    if (noteState && !noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].active) {
-      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].HTMLElement.innerHTML = 1;
-    }
-    if (noteState) {
-      noteClassArray[currentCell[0]][currentCell[1]]
-        .noteGridArray[0].active = !noteClassArray[currentCell[0]][currentCell[1]]
-          .noteGridArray[0].active;
-    }
+    numberKeyDown(1, 0);
 
   }
   if (event.keyCode == 50) {
-    if (!noteState) {
-      sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 2;
-      sudoku.gridDisplay();
-    }
-    if (noteState && noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[1].active) {
-      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[1].HTMLElement.innerHTML = "";
-
-    }
-    if (noteState && !noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].active) {
-      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[1].HTMLElement.innerHTML = 1;
-    }
-    if (noteState) {
-      noteClassArray[currentCell[0]][currentCell[1]]
-        .noteGridArray[1].active = !noteClassArray[currentCell[0]][currentCell[1]]
-          .noteGridArray[1].active;
-    }
-    if (noteState) {
-      document.querySelector(".cell1").innerHTML = 2;
-    }
+    numberKeyDown(2, 1);
   }
+
   if (event.keyCode == 51) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 3;
-    sudoku.gridDisplay();
-    if (noteState) {
-      document.querySelector(".cell2").innerHTML = 3;
-    }
+    numberKeyDown(3, 2);
   }
   if (event.keyCode == 52) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 4;
-    sudoku.gridDisplay();
-    if (noteState) {
-      document.querySelector(".cell3").innerHTML = 4;
-    }
+    numberKeyDown(4, 3);
   }
   if (event.keyCode == 53) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 5;
-    sudoku.gridDisplay();
-    if (noteState) {
-      document.querySelector(".cell4").innerHTML = 5;
-    }
+    numberKeyDown(5, 4);
   }
   if (event.keyCode == 54) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 6;
-    sudoku.gridDisplay();
-    if (noteState) {
-      document.querySelector(".cell5").innerHTML = 6;
-    }
+    numberKeyDown(6, 5);
   }
   if (event.keyCode == 55) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 7;
-    sudoku.gridDisplay();
-    if (noteState) {
-      document.querySelector(".cell6").innerHTML = 7;
-    }
+    numberKeyDown(7, 6);
   }
   if (event.keyCode == 56) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 8;
-    sudoku.gridDisplay();
-    if (noteState) {
-      document.querySelector(".cell7").innerHTML = 8;
-    }
+    numberKeyDown(8, 7);
   }
   if (event.keyCode == 57) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 9;
-    sudoku.gridDisplay();
-    if (noteState) {
-      document.querySelector(".cell8").innerHTML = 9;
-    }
+    numberKeyDown(9, 8);
   }
 });
 
