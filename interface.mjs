@@ -10,7 +10,6 @@ for (let i = 0; i < 9; i++) {
 }
 
 
-const notes = new Notes();
 const sudoku = new Sudoku("gridElement1");
 let noteState = false;
 const dashboardButton = document.querySelectorAll("div.button");
@@ -159,8 +158,22 @@ document.body.addEventListener("keydown", function(event) {
 
   }
   if (event.keyCode == 50) {
-    sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 2;
-    sudoku.gridDisplay();
+    if (!noteState) {
+      sudoku.gridRow[currentCell[0]][currentCell[1]].fin = 2;
+      sudoku.gridDisplay();
+    }
+    if (noteState && noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[1].active) {
+      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[1].HTMLElement.innerHTML = "";
+
+    }
+    if (noteState && !noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[0].active) {
+      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[1].HTMLElement.innerHTML = 1;
+    }
+    if (noteState) {
+      noteClassArray[currentCell[0]][currentCell[1]]
+        .noteGridArray[1].active = !noteClassArray[currentCell[0]][currentCell[1]]
+          .noteGridArray[1].active;
+    }
     if (noteState) {
       document.querySelector(".cell1").innerHTML = 2;
     }

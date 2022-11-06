@@ -21,6 +21,7 @@ export class Notes {
     this.noteGridArray = [];
     document.body.appendChild(this.noteGrid)
     this.noteGrid.classList.add("notegrid");
+    this.noteGrid.classList.add(`notegrid${_i}${_j}`);
     console.log(document.querySelector("div.notegrid"))
 
     for (let i = 0; i < 9; i++) {
@@ -29,8 +30,8 @@ export class Notes {
         active: false,
         HTMLElement: this.noteGrid.appendChild(document.createElement("div"))
       });
-      this.noteGridArray[i].HTMLElement.classList.add("notegridcell");
-      this.noteGridArray[i].HTMLElement.classList.add(`cell${i}`);
+      this.noteGridArray[i].HTMLElement.classList.add("notecell");
+      this.noteGridArray[i].HTMLElement.classList.add(`notecell${i}`);
 
     }
   }
@@ -40,7 +41,7 @@ export class Sudoku {
 
     document.getElementById(htmlElement).classList.add("container");
     this.gridElement = document.getElementById(htmlElement).appendChild(document.createElement('div'));
-    this.gridElement.classList.add("grid-cell");
+    this.gridElement.classList.add("grid");
     this.dashBoard = document.getElementById(htmlElement).appendChild(document.createElement('div'));
     // Draw buttons
     this.buttonArray = [];
@@ -127,6 +128,8 @@ export class Sudoku {
 
       for (let j = 0; j < 9; j++) {
         this.gridElementArray[i][j] = document.createElement("div");
+        this.gridElementArray[i][j].classList.add("cell")
+        this.gridElementArray[i][j].classList.add(`cell${i}${j}`)
         this.gridElementArray[i][j];
         this.gridElement.appendChild(this.gridElementArray[i][j]);
         this.gridRow[i][j] = {

@@ -72,9 +72,10 @@
       background: yellow;
     }
 
-    .notegridcell {
+    .notecell {
       background: green;
       height: 20px;
+      display: none;
     }
 
     .notegrid {
@@ -101,7 +102,7 @@
       background-color: grey;
     }
 
-    .grid-cell {
+    .grid {
       display: grid;
       aspect-ratio: 1 / 1;
       width: 65%;
@@ -111,7 +112,7 @@
     }
 
 
-    .grid-cell div {
+    .cell {
       font-size: 1 em;
       display: flex;
       flex-wrap: wrap;
@@ -119,7 +120,6 @@
       align-items: center;
       font-weight: 700;
       color: black;
-      background: lightgray;
       border: 1px solid black;
 
       -webkit-user-select: none;
