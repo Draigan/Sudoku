@@ -1,5 +1,7 @@
 import { Sudoku } from "./sudoku.mjs";
 import { Notes } from "./sudoku.mjs";
+
+const sudoku = new Sudoku("gridElement1");
 const noteClassArray = [];
 
 for (let i = 0; i < 9; i++) {
@@ -10,7 +12,6 @@ for (let i = 0; i < 9; i++) {
 }
 
 
-const sudoku = new Sudoku("gridElement1");
 let noteState = false;
 const dashboardButton = document.querySelectorAll("div.button");
 dashboardButton.forEach((item) => {
@@ -22,6 +23,19 @@ dashboardButton.forEach((item) => {
   })
 })
 
+
+const cell = document.querySelectorAll("div.cell");
+
+//  Put the note grid into the cell for each
+for (let i = 0; i < 9; i++) {
+  for (let j = 0; j < 9; j++) {
+    let cellElement = document.querySelector(`div.cell${i}${j}`);
+    let noteGrid = document.querySelector(`div.notegrid${i}${j}`);
+    console.log(cellElement)
+    cellElement.appendChild(noteGrid);
+    // cell[i][j].appendChild(noteGrid[i][j]);
+  }
+}
 //Note Button
 const noteButton = document.querySelector(".buttoncontrol");
 noteButton.addEventListener("click", () => {

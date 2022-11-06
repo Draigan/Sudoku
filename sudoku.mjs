@@ -22,7 +22,6 @@ export class Notes {
     document.body.appendChild(this.noteGrid)
     this.noteGrid.classList.add("notegrid");
     this.noteGrid.classList.add(`notegrid${_i}${_j}`);
-    console.log(document.querySelector("div.notegrid"))
 
     for (let i = 0; i < 9; i++) {
       this.noteGridArray.push({
