@@ -19,6 +19,20 @@ dashboardButton.forEach((item) => {
     if (!noteState) {
       sudoku.gridRow[currentCell[0]][currentCell[1]].fin = item.innerHTML;
       sudoku.gridDisplay();
+      noteToggle();
+    }
+    if (noteState && noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[item.innerHTML - 1].active) {
+      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[item.innerHTML - 1].HTMLElement.innerHTML = "";
+
+    }
+    if (noteState && !noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[item.innerHTML - 1].active) {
+      noteClassArray[currentCell[0]][currentCell[1]].noteGridArray[item.innerHTML - 1].HTMLElement.innerHTML = item.innerHTML;
+    }
+    if (noteState) {
+      noteClassArray[currentCell[0]][currentCell[1]]
+        .noteGridArray[item.innerHTML - 1].active = !noteClassArray[currentCell[0]][currentCell[1]]
+          .noteGridArray[item.innerHTML - 1].active;
+      noteToggle();
     }
   })
 })
