@@ -95,6 +95,8 @@ export class Sudoku {
     this.smallest = { val: "00000000000" };
     this.breaker = 0;
     this.firstTry = true;
+    this.gridNumberArray = [];
+    this.drawNumberWrapper();
     this.createGrid();
     this.sectionGrid();
     this.reRoll();
@@ -333,10 +335,21 @@ export class Sudoku {
       }
     }
   }
+
+  drawNumberWrapper() {
+
+    for (let i = 0; i < 9; i++) {
+      this.gridNumberArray[i] = [];
+      for (let j = 0; j < 9; j++) {
+        this.gridNumberArray[i][j] = document.createElement("div");
+
+      }
+    }
+  }
   gridDisplay() {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        this.gridElementArray[i][j].innerHTML = this.gridRow[i][j].fin
+        this.gridNumberArray[i][j].innerHTML = this.gridRow[i][j].fin;
       }
     }
   }

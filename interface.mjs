@@ -23,9 +23,6 @@ dashboardButton.forEach((item) => {
   })
 })
 
-
-const cell = document.querySelectorAll("div.cell");
-
 //  Put the note grid into the cell for each
 for (let i = 0; i < 9; i++) {
   for (let j = 0; j < 9; j++) {
@@ -33,6 +30,7 @@ for (let i = 0; i < 9; i++) {
     let noteGrid = document.querySelector(`div.notegrid${i}${j}`);
     console.log(cellElement)
     cellElement.appendChild(noteGrid);
+    cellElement.appendChild(sudoku.gridNumberArray[i][j]);
     // cell[i][j].appendChild(noteGrid[i][j]);
   }
 }
