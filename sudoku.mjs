@@ -342,6 +342,8 @@ export class Sudoku {
       this.gridNumberArray[i] = [];
       for (let j = 0; j < 9; j++) {
         this.gridNumberArray[i][j] = document.createElement("div");
+        this.gridNumberArray[i][j].classList.add(`number`)
+        this.gridNumberArray[i][j].classList.add(`number${i}${j}`)
 
       }
     }

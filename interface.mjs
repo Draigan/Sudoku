@@ -22,22 +22,28 @@ dashboardButton.forEach((item) => {
     }
   })
 })
-
 //  Put the note grid into the cell for each
 for (let i = 0; i < 9; i++) {
   for (let j = 0; j < 9; j++) {
     let cellElement = document.querySelector(`div.cell${i}${j}`);
-    let noteGrid = document.querySelector(`div.notegrid${i}${j}`);
+    let particularNoteGrid = document.querySelector(`div.notegrid${i}${j}`);
+    particularNoteGrid.classList.add("hidden")
     console.log(cellElement)
-    cellElement.appendChild(noteGrid);
+    cellElement.appendChild(particularNoteGrid);
     cellElement.appendChild(sudoku.gridNumberArray[i][j]);
-    // cell[i][j].appendChild(noteGrid[i][j]);
   }
 }
 //Note Button
 const noteButton = document.querySelector(".buttoncontrol");
 noteButton.addEventListener("click", () => {
 
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      let noteGrid = document.querySelector(`div.notegrid${currentCell[0]}${currentCell[1]}`);
+      sudoku.gridNumberArray[currentCell[0]][currentCell[1]].classList.toggle("hidden");
+      noteGrid.classList.toggle("hidden");
+    }
+  }
   noteButton.classList.toggle("-yellow");
   noteState = !noteState;
 });
