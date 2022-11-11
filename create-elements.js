@@ -12,8 +12,15 @@ export class Creator {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         this.createDiv(`.${mainNode}-board`, "board--cell", `${mainNode}-board--cell${i}${j}`);
-        this.createDiv(`.${mainNode}-board--cell${i}${j}`, "board--number-wrapper", `${mainNode}-board--number-wrapper${i}${j}`);
-        this.createDiv(`.${mainNode}-board--cell${i}${j}`, "board--note-grid", `${mainNode}-board--note-grid${i}${j}`);
+
+        this.createDiv(`.${mainNode}-board--cell${i}${j}`
+          , "board--number-wrapper"
+          , `${mainNode}-board--number-wrapper${i}${j}`);
+
+        this.createDiv(`.${mainNode}-board--cell${i}${j}`,
+          "board--note-grid",
+          `${mainNode}-board--note-grid${i}${j}`);
+
         for (let k = 0; k < 9; k++) {
 
           this.createDiv(`.${mainNode}-board--note-grid${i}${j}`, "note-grid--cell", `note-grid--cell${k}`);
@@ -37,7 +44,7 @@ export class Creator {
       this.createDiv(`.${mainNode}-panel`, "panel--button-erase", `${mainNode}-panel--button-erase`);
     this.eraseButton.innerHTML = "Erase";
   }
-  //Method for creating, appending and giving class name
+  //Create Div Method for creating appending and giving class name
   createDiv(appendTo, classNameOne = "default", classNameTwo = "default") {
     this.currentElement = document.createElement("div");
     this.currentParentElement = appendTo;

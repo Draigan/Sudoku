@@ -8,7 +8,26 @@ export class Interface {
         this.cellsArray[i][j] = document.querySelector(`.${mainNode}-board--cell${i}${j}`)
       }
     }
+    //This represents the coordinates of the cell that is currently clicked
+    this.currentCell = [4, 4];
+
+    this.highlight(4, 4);
     this.eventListeners();
+  }
+  //Wrap for the arrow keys
+  keypressWrapAround() {
+    if (this.currentCell[1] === -1) {
+      this.currentCell[1] = 8;
+    }
+    if (this.currentCell[1] === 9) {
+      this.currentCell[1] = 0;
+    }
+    if (this.currentCell[0] === 9) {
+      this.currentCell[0] = 0;
+    }
+    if (this.currentCell[0] === -1) {
+      this.currentCell[0] = 8;
+    }
   }
   highlight(x, y) {
 
@@ -42,10 +61,35 @@ export class Interface {
   }
   eventListeners() {
 
+    document.body.addEventListener("keydown", (event) => {
+      if (event.keyCode == 37) {
+        this.currentCell = [this.currentCell[0], this.currentCell[1] - 1];
+        this.keypressWrapAround();
+        this.highlight(this.currentCell[0], this.currentCell[1]);
+
+      }
+      if (event.keyCode == 39) {
+        this.currentCell = [this.currentCell[0], this.currentCell[1] + 1];
+        this.keypressWrapAround();
+        this.highlight(this.currentCell[0], this.currentCell[1]);
+      }
+      if (event.keyCode == 40) {
+        this.currentCell = [this.currentCell[0] + 1, this.currentCell[1]];
+        this.keypressWrapAround();
+        this.highlight(this.currentCell[0], this.currentCell[1]);
+      }
+      if (event.keyCode == 38) {
+        this.currentCell = [this.currentCell[0] - 1, this.currentCell[1]];
+        this.keypressWrapAround();
+        this.highlight(this.currentCell[0], this.currentCell[1]);
+      }
+    });
+
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         this.cellsArray[i][j].addEventListener("click", () => {
           this.highlight(i, j);
+          this.currentCell = [i, j];
         })
       }
     }

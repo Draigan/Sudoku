@@ -44,7 +44,6 @@ export class Data {
   }
 
   reRoll() {
-
     this.reset();
     this.mainAlgoRunner();
   }
