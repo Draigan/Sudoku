@@ -31,9 +31,12 @@ export class Data {
     this.findPerfect();
     this.addOneToEverySquare(); // I worked from 0 - 8 so this makes it 1 to 9
     this.gridDisplay(mainNode);
+    this.newGameButton = document.querySelector(`.${mainNode}-panel--button-new-game`);
+    this.newGameButton.addEventListener("click", () => {
+      this.findPerfect();
+      this.gridDisplay(mainNode);
+    })
   }
-
-
   reset() {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
@@ -43,11 +46,10 @@ export class Data {
     }
   }
 
-  reRoll() {
+  reRoll(mainNode) {
     this.reset();
     this.mainAlgoRunner();
   }
-
 
   createGrid() {
     for (let i = 0; i < 9; i++) {
@@ -67,7 +69,6 @@ export class Data {
   }
 
   findSmallestArrayLength() {
-
     const smallestArray = [];
 
     //Find the smallest val.length

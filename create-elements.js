@@ -34,7 +34,7 @@ export class Creator {
     this.newGameButton.innerHTML = "New Game";
     for (let i = 1; i <= 9; i++) {
 
-      this.panelButton = this.createDiv(`.${mainNode}-panel`, "panel--button", `${mainNode}-panel--button${i}`);
+      this.panelButton = this.createDiv(`.${mainNode}-panel`, "panel--button", `${mainNode}-panel--button`);
       this.panelButton.innerHTML = `${i}`
     }
     this.notesButton =

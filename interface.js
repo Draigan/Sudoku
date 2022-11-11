@@ -1,13 +1,19 @@
 export class Interface {
   constructor(mainNode) {
-    //Add all the nodes of cells to a 2x2 Array
+    //Add all the nodes of cells to a 2x2 Array 
     this.cellsArray = [];
     for (let i = 0; i < 9; i++) {
       this.cellsArray[i] = [];
       for (let j = 0; j < 9; j++) {
-        this.cellsArray[i][j] = document.querySelector(`.${mainNode}-board--cell${i}${j}`)
+        this.cellsArray[i][j] = document.querySelector(`.${mainNode}-board--cell${i}${j}`);
       }
     }
+    //Add all the number buttons to an array 
+    this.numberButtonsArray = document.querySelectorAll(`.${mainNode}-panel--button`);
+
+    //Select buttons erase, and notes. new game is handled in the data class
+    this.notesButton = document.querySelector(`.${mainNode}-panel--button-notes`);
+    this.eraseButton = document.querySelector(`.${mainNode}-panel--button-erase`);
     //This represents the coordinates of the cell that is currently clicked
     this.currentCell = [4, 4];
 
@@ -84,7 +90,18 @@ export class Interface {
         this.highlight(this.currentCell[0], this.currentCell[1]);
       }
     });
+    this.numberButtonsArray.forEach((button) => {
+      button.addEventListener("click", () => {
 
+        console.log("HEY")
+      })
+    })
+    this.eraseButton.addEventListener("click", () => {
+      console.log("erase")
+    })
+    this.notesButton.addEventListener("click", () => {
+      console.log("notes")
+    })
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         this.cellsArray[i][j].addEventListener("click", () => {
