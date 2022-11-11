@@ -44,7 +44,15 @@
   height: 25rem 
   background-color: teal
   display: grid
+  gap: 4px
   grid-template-columns: 1fr 1fr 1fr
+  border-radius: 9px
+
+.panel > div 
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 9px
 
 .panel--button
   background-color: green
@@ -66,20 +74,11 @@
 
 .board--number-wrapper
 
-.gridElement 
-  width: 720px
-  height: 720px
-  display: flex
-  flex-wrap: wrap
+.-hidden 
+  display: none
 
-// .gridElement div 
-//   display: none
-//   font-size: 10px
-//   display: flex
-//   justify-content: center
-//   align-items: center
-//   color: rgb(194, 194, 194)
-//   width: 80px
-//   height: 80px
-//   background: rgb(56, 56, 56)
-//   border: 1px solid black
+.-highlight
+  background-color: yellow
+
+.-center-highlight
+  background-color: red

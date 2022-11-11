@@ -42,10 +42,11 @@ export class Creator {
     this.currentElement = document.createElement("div");
     this.currentParentElement = appendTo;
 
-    //We cant query select constants
+    //We cant query select objects
     if (typeof appendTo == "string") {
       this.currentParentElement = document.querySelector(appendTo);
     }
+
     this.currentElement.classList.add(classNameOne);
     this.currentElement.classList.add(classNameTwo);
     this.currentParentElement.appendChild(this.currentElement);

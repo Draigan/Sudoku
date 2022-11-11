@@ -1,10 +1,8 @@
 import { Creator } from "/create-elements.js"
+import { Interface } from "/interface.js"
 
 export class Data {
   constructor(mainNode) {
-    // this.gridElement = document.getElementById(htmlElement);
-    // this.gridElement.classList.add("main-element");
-    this.gridElementArray = [];
     this.gridRow = [];
     this.sectionZero = [];
     this.sectionOne = [];
@@ -280,5 +278,6 @@ export class Sudoku {
   constructor(mainNode) {
     this.ElementCreator = new Creator(mainNode);
     this.data = new Data(mainNode);
+    this.interface = new Interface(mainNode);
   }
 }
