@@ -34,7 +34,7 @@ export class Creator {
     this.newGameButton.innerHTML = "New Game";
     for (let i = 1; i <= 9; i++) {
 
-      this.panelButton = this.createDiv(`.${mainNode}-panel`, "panel--button", `${mainNode}-panel--button`);
+      this.panelButton = this.createDiv(`.${mainNode}-panel`, "panel--button", `${mainNode}-panel--button${i}`);
       this.panelButton.innerHTML = `${i}`
     }
     this.notesButton =
@@ -44,7 +44,7 @@ export class Creator {
       this.createDiv(`.${mainNode}-panel`, "panel--button-erase", `${mainNode}-panel--button-erase`);
     this.eraseButton.innerHTML = "Erase";
   }
-  //Create Div Method for creating appending and giving class name
+  //Create Div Method forting, appending and giving class name
   createDiv(appendTo, classNameOne = "default", classNameTwo = "default") {
     this.currentElement = document.createElement("div");
     this.currentParentElement = appendTo;

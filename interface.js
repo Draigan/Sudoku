@@ -18,7 +18,7 @@ export class Interface {
     this.currentCell = [4, 4];
 
     this.highlight(4, 4);
-    this.eventListeners();
+    this.eventListeners(mainNode);
   }
   //Wrap for the arrow keys
   keypressWrapAround() {
@@ -65,7 +65,12 @@ export class Interface {
     }
 
   }
-  eventListeners() {
+  //Erase all content of cell 
+  erase(mainNode) {
+    this.currentNumberWrapper = document.querySelector(`.${mainNode}-board--number-wrapper${this.currentCell[0]}${this.currentCell[1]}`)
+    this.currentNumberWrapper.innerHTML = "";
+  }
+  eventListeners(mainNode) {
 
     document.body.addEventListener("keydown", (event) => {
       if (event.keyCode == 37) {
@@ -97,7 +102,7 @@ export class Interface {
       })
     })
     this.eraseButton.addEventListener("click", () => {
-      console.log("erase")
+      this.erase(mainNode);
     })
     this.notesButton.addEventListener("click", () => {
       console.log("notes")
