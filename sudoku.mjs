@@ -1,77 +1,9 @@
-import * as solver from "/solver.mjs";
-// console.log(solver.solve(
-//   [
-//     [0, 0, 0, 0, 0, 9, 0, 0, 0],
-//     [0, 0, 0, 3, 0, 0, 4, 0, 2],
-//     [0, 6, 0, 5, 0, 0, 3, 0, 7],
-//     [0, 9, 0, 0, 5, 0, 0, 2, 0],
-//     [2, 0, 0, 6, 0, 0, 0, 0, 0],
-//     [0, 0, 3, 4, 0, 2, 1, 0, 0],
-//     [5, 3, 1, 2, 0, 6, 0, 0, 0],
-//     [0, 2, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 8, 0, 7, 0]
-//   ]
-// ));
-export class Notes {
+import { Creator } from "/create-elements.js"
 
-  // Draw note cells
-  constructor(_i, _j) {
-    this.id = [_i, _j];
-    this.noteGrid = document.createElement("div");
-    this.noteGridArray = [];
-    document.body.appendChild(this.noteGrid)
-    this.noteGrid.classList.add("notegrid");
-    this.noteGrid.classList.add(`notegrid${_i}${_j}`);
-
-    for (let i = 0; i < 9; i++) {
-      this.noteGridArray.push({
-        name: `note${i}`,
-        active: false,
-        HTMLElement: this.noteGrid.appendChild(document.createElement("div"))
-      });
-      this.noteGridArray[i].HTMLElement.classList.add("notecell");
-      this.noteGridArray[i].HTMLElement.classList.add(`notecell${i}`);
-
-    }
-  }
-}
-export class Sudoku {
-  constructor(htmlElement) {
-
-    document.getElementById(htmlElement).classList.add("container");
-    this.gridElement = document.getElementById(htmlElement).appendChild(document.createElement('div'));
-    this.gridElement.classList.add("grid");
-    this.dashBoard = document.getElementById(htmlElement).appendChild(document.createElement('div'));
-    // Draw buttons
-    this.buttonArray = [];
-    for (let i = 0; i < 9; i++) {
-      this.buttonArray.push({
-        name: `button${i}`,
-        HTMLElement: this.dashBoard.appendChild(document.createElement('div'))
-      })
-
-
-      this.buttonArray[i].HTMLElement.classList.add("button");
-      this.buttonArray[i].HTMLElement.innerHTML = i + 1;
-
-    }
-    this.buttonArray.push({
-      name: `notes`,
-      HTMLElement: this.dashBoard.appendChild(document.createElement('div'))
-    });
-    this.buttonArray.push({
-      name: `erase`,
-      HTMLElement: this.dashBoard.appendChild(document.createElement('div'))
-    });
-    this.buttonArray[9].HTMLElement.classList.add("buttoncontrol");
-    this.buttonArray[9].HTMLElement.innerHTML = "Notes";
-    this.dashBoard.classList.add("dashboard");
-
-    this.buttonArray[10].HTMLElement.classList.add("buttoncontrol");
-    this.buttonArray[10].HTMLElement.innerHTML = "Erase";
-    this.dashBoard.classList.add("dashboard");
-
-    // console.log(document.querySelector("div.notegrid"))
+export class Data {
+  constructor(mainNode) {
+    // this.gridElement = document.getElementById(htmlElement);
+    // this.gridElement.classList.add("main-element");
     this.gridElementArray = [];
     this.gridRow = [];
     this.sectionZero = [];
@@ -95,16 +27,14 @@ export class Sudoku {
     this.smallest = { val: "00000000000" };
     this.breaker = 0;
     this.firstTry = true;
-    this.gridNumberArray = [];
-    this.drawNumberWrapper();
     this.createGrid();
     this.sectionGrid();
     this.reRoll();
     this.findPerfect();
     this.addOneToEverySquare(); // I worked from 0 - 8 so this makes it 1 to 9
-    console.log(solver.solve(this.gridRow))
-    this.gridDisplay();
+    this.gridDisplay(mainNode);
   }
+
 
   reset() {
     for (let i = 0; i < 9; i++) {
@@ -124,23 +54,16 @@ export class Sudoku {
 
   createGrid() {
     for (let i = 0; i < 9; i++) {
-      this.gridElementArray[i] = [];
       this.gridRow[i] = [];
 
       for (let j = 0; j < 9; j++) {
-        this.gridElementArray[i][j] = document.createElement("div");
-        this.gridElementArray[i][j].classList.add("cell")
-        this.gridElementArray[i][j].classList.add(`cell${i}${j}`)
-        this.gridElementArray[i][j];
-        this.gridElement.appendChild(this.gridElementArray[i][j]);
         this.gridRow[i][j] = {
           id: i.toString() + j.toString(),
           val: [0, 1, 2, 3, 4, 5, 6, 7, 8],
           section: null,
           col: null,
           row: i,
-          fin: null,
-          unclickable: false
+          fin: null
         }
       }
     }
@@ -335,23 +258,12 @@ export class Sudoku {
       }
     }
   }
-
-  drawNumberWrapper() {
-
-    for (let i = 0; i < 9; i++) {
-      this.gridNumberArray[i] = [];
-      for (let j = 0; j < 9; j++) {
-        this.gridNumberArray[i][j] = document.createElement("div");
-        this.gridNumberArray[i][j].classList.add(`number`)
-        this.gridNumberArray[i][j].classList.add(`number${i}${j}`)
-
-      }
-    }
-  }
-  gridDisplay() {
+  gridDisplay(mainNode) {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        this.gridNumberArray[i][j].innerHTML = this.gridRow[i][j].fin;
+        this.numberWrapper = document.body.querySelector(`.${mainNode}-board--number-wrapper${i}${j}`);
+        this.numberWrapper.innerHTML = this.gridRow[i][j].fin;
+
       }
     }
   }
@@ -364,3 +276,9 @@ export class Sudoku {
   }
 }
 
+export class Sudoku {
+  constructor(mainNode) {
+    this.ElementCreator = new Creator(mainNode);
+    this.data = new Data(mainNode);
+  }
+}
