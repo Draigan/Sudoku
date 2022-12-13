@@ -1,4 +1,5 @@
 import { Sudoku } from "/sudoku.mjs"
-const sudoku = new Sudoku("sudoku");
+const node = document.querySelector('[sudoku]')
+const sudoku = new Sudoku(node);
 
 

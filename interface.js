@@ -1,55 +1,38 @@
 export class Interface {
-  constructor(mainNode) {
-    //Add all the nodes of cells to a 2x2 Array 
-    this.cellsArray = [];
-    for (let i = 0; i < 9; i++) {
-      this.cellsArray[i] = [];
-      for (let j = 0; j < 9; j++) {
-        this.cellsArray[i][j] = document.querySelector(`.${mainNode}-board--cell${i}${j}`);
-      }
-    }
-    //Add all the number buttons to an array 
-    this.numberButtonsArray = document.querySelectorAll(`.${mainNode}-panel--button`);
+  constructor(nodes) {
+    this.container = nodes.container;
+    this.board = nodes.board;
+    this.cells = nodes.cells;
+    this.notesButton = nodes.notesButton;
+    this.eraseButton = nodes.eraseButton;
+    this.numberButtons = nodes.numberButtons;
+    this.numberWrappers = nodes.numberWrappers;
 
-    //Select buttons erase, and notes. new game is handled in the data class
-    this.notesButton = document.querySelector(`.${mainNode}-panel--button-notes`);
-    this.eraseButton = document.querySelector(`.${mainNode}-panel--button-erase`);
+    this.notesActive = false;
+
+
     //This represents the coordinates of the cell that is currently clicked
     this.currentCell = [4, 4];
-
     this.highlight(4, 4);
-    this.eventListeners(mainNode);
-  }
-  //Wrap for the arrow keys
-  keypressWrapAround() {
-    if (this.currentCell[1] === -1) {
-      this.currentCell[1] = 8;
-    }
-    if (this.currentCell[1] === 9) {
-      this.currentCell[1] = 0;
-    }
-    if (this.currentCell[0] === 9) {
-      this.currentCell[0] = 0;
-    }
-    if (this.currentCell[0] === -1) {
-      this.currentCell[0] = 8;
-    }
+
+    //Call event listeners
+    this.eventListeners();
   }
   highlight(x, y) {
 
     //Reset previous highlighted cells 
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        this.cellsArray[i][j].classList.remove("-highlight");
-        this.cellsArray[i][j].classList.remove("-center-highlight");
+        this.cells[i][j].classList.remove("-center-highlight");
+        this.cells[i][j].classList.remove("-highlight");
       }
     }
     //Highlight clicked cell
-    this.cellsArray[x][y].classList.add("-center-highlight");
+    this.cells[x][y].classList.add("-center-highlight");
     //Highlight rows and cols 
     for (let i = 0; i < 9; i++) {
-      this.cellsArray[x][i].classList.add("-highlight");
-      this.cellsArray[i][y].classList.add("-highlight");
+      this.cells[x][i].classList.add("-highlight");
+      this.cells[i][y].classList.add("-highlight");
 
     }
 
@@ -59,20 +42,22 @@ export class Interface {
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        this.cellsArray[x0 + i][y0 + j].classList.add("-highlight");
+        this.cells[x0 + i][y0 + j].classList.add("-highlight");
 
       }
     }
 
   }
   //Erase all content of cell 
-  erase(mainNode) {
-    this.currentNumberWrapper = document.querySelector(`.${mainNode}-board--number-wrapper${this.currentCell[0]}${this.currentCell[1]}`)
-    this.currentNumberWrapper.innerHTML = "";
+  erase() {
+    this.currentNumberWrapper =
+      this.numberWrappers[this.currentCell[0]][this.currentCell[1]];
+    this.currentNumberWrapper.classList.add("-highlight");
   }
-  eventListeners(mainNode) {
 
-    document.body.addEventListener("keydown", (event) => {
+  eventListeners() {
+
+    this.container.addEventListener("keydown", (event) => {
       if (event.keyCode == 37) {
         this.currentCell = [this.currentCell[0], this.currentCell[1] - 1];
         this.keypressWrapAround();
@@ -95,25 +80,46 @@ export class Interface {
         this.highlight(this.currentCell[0], this.currentCell[1]);
       }
     });
-    this.numberButtonsArray.forEach((button) => {
-      button.addEventListener("click", () => {
 
-        console.log("HEY")
+    for (let i = 0; i < this.numberButtons.length; i++) {
+      this.numberButtons[i].addEventListener("click", () => {
+
+        //Put button number into current cell
+        this.currentNumberWrapper =
+          this.numberWrappers[this.currentCell[0]][this.currentCell[1]];
+        this.currentNumberWrapper.classList.remove("-hidden");
+        this.currentNumberWrapper.innerHTML = this.numberButtons[i].innerHTML
+
       })
-    })
+    }
     this.eraseButton.addEventListener("click", () => {
-      this.erase(mainNode);
+      this.erase();
     })
     this.notesButton.addEventListener("click", () => {
-      console.log("notes")
     })
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        this.cellsArray[i][j].addEventListener("click", () => {
+        this.cells[i][j].addEventListener("click", () => {
           this.highlight(i, j);
           this.currentCell = [i, j];
         })
       }
+    }
+  }
+
+  //Wrap for the arrow keys
+  keypressWrapAround() {
+    if (this.currentCell[1] === -1) {
+      this.currentCell[1] = 8;
+    }
+    if (this.currentCell[1] === 9) {
+      this.currentCell[1] = 0;
+    }
+    if (this.currentCell[0] === 9) {
+      this.currentCell[0] = 0;
+    }
+    if (this.currentCell[0] === -1) {
+      this.currentCell[0] = 8;
     }
   }
 }

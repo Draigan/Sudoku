@@ -1,8 +1,11 @@
-import { Creator } from "/create-elements.js"
-import { Interface } from "/interface.js"
+import { Creator } from "./create-elements.js"
+import { Interface } from "./interface.js"
 
-export class Data {
-  constructor(mainNode) {
+export class Sudoku {
+  constructor(element) {
+    this.creator = new Creator(element);
+    this.nodes = this.creator.nodes();
+    this.interface = new Interface(this.nodes);
     this.gridRow = [];
     this.sectionZero = [];
     this.sectionOne = [];
@@ -26,18 +29,21 @@ export class Data {
     this.breaker = 0;
     this.firstTry = true;
     this.createGrid();
-    this.sectionGrid();
+    this.computeBoxesGridsAndColumns();
     this.reRoll();
     this.findPerfect();
     this.addOneToEverySquare(); // I worked from 0 - 8 so this makes it 1 to 9
-    this.gridDisplay(mainNode);
-    this.newGameButton = document.querySelector(`.${mainNode}-panel--button-new-game`);
+    this.refreshUI();
+    this.newGameButton = this.nodes.newGameButton;
+
     this.newGameButton.addEventListener("click", () => {
+      this.reRoll();
       this.findPerfect();
-      this.gridDisplay(mainNode);
+      this.addOneToEverySquare();
+      this.refreshUI();
     })
   }
-  reset() {
+  resetGrid() {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         this.gridRow[i][j].fin = null;
@@ -46,9 +52,21 @@ export class Data {
     }
   }
 
-  reRoll(mainNode) {
-    this.reset();
-    this.mainAlgoRunner();
+  reRoll() {
+
+    if (!this.firstTry) {
+      for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          this.currentNumberWrapper =
+            this.numberWrapper = this.nodes.numberWrappers[i][j];
+
+          this.currentNumberWrapper.classList.remove("sudoku___hidden");
+        }
+      }
+    }
+    this.firstTry = false;
+    this.resetGrid();
+    this.computeValidSudoku();
   }
 
   createGrid() {
@@ -68,7 +86,7 @@ export class Data {
     }
   }
 
-  findSmallestArrayLength() {
+  findSquareWithLeastOptions() {
     const smallestArray = [];
 
     //Find the smallest val.length
@@ -99,19 +117,19 @@ export class Data {
   }
 
   // Basically run the algo 81x
-  mainAlgoRunner() {
-    this.mainAlgo(this.gridRow[4][4]);
-    this.mainAlgo(this.gridRow[0][4]);
-    this.mainAlgo(this.gridRow[1][4]);
+  computeValidSudoku() {
+    this.pickCellValue(this.gridRow[4][4]);
+    this.pickCellValue(this.gridRow[0][4]);
+    this.pickCellValue(this.gridRow[1][4]);
 
     for (let i = 0; i < 78; i++) {
-      this.findSmallestArrayLength()
-      this.mainAlgo(this.smallest);
+      this.findSquareWithLeastOptions()
+      this.pickCellValue(this.smallest);
     }
 
   }
 
-  mainAlgo(square) {
+  pickCellValue(square) {
 
     let { val, row, col, section } = square;
     let number;
@@ -159,7 +177,7 @@ export class Data {
 
   findPerfect() {
     if (!this.firstTry) {
-      this.reset();
+      this.resetGrid();
       this.reRoll();
 
     }
@@ -174,7 +192,7 @@ export class Data {
       }
     }
   }
-  sectionGrid() {
+  computeBoxesGridsAndColumns() {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         //Sections
@@ -256,12 +274,13 @@ export class Data {
       }
     }
   }
-  gridDisplay(mainNode) {
+  refreshUI() {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-        this.numberWrapper = document.body.querySelector(`.${mainNode}-board--number-wrapper${i}${j}`);
-        this.numberWrapper.innerHTML = this.gridRow[i][j].fin;
-
+        this.numberWrapper = this.nodes.numberWrappers[i][j];
+        if (this.numberWrapper != null) {
+          this.numberWrapper.innerHTML = this.gridRow[i][j].fin;
+        }
       }
     }
   }
@@ -274,10 +293,3 @@ export class Data {
   }
 }
 
-export class Sudoku {
-  constructor(mainNode) {
-    this.ElementCreator = new Creator(mainNode);
-    this.data = new Data(mainNode);
-    this.interface = new Interface(mainNode);
-  }
-}
