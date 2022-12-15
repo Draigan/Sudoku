@@ -7,10 +7,11 @@ export class Interface {
     this.eraseButton = nodes.eraseButton;
     this.numberButtons = nodes.numberButtons;
     this.numberWrappers = nodes.numberWrappers;
-
+    this.noteGridCellInnerCells = nodes.noteGridCellInnerCells;
+    this.noteGridCells = nodes.noteGridCells;
     this.notesActive = false;
 
-
+    console.log(this.noteGridCellsInnerCells)
     //This represents the coordinates of the cell that is currently clicked
     this.currentCell = [4, 4];
     this.highlight(4, 4);
@@ -52,11 +53,19 @@ export class Interface {
   erase() {
     this.currentNumberWrapper =
       this.numberWrappers[this.currentCell[0]][this.currentCell[1]];
-    this.currentNumberWrapper.classList.add("-highlight");
+    this.currentNumberWrapper.classList.add("-hidden");
   }
 
   eventListeners() {
 
+    //Notes button
+    this.notesButton.addEventListener("click", () => {
+      this.notesActive = !this.notesActive;
+      this.notesButton.classList.toggle("-highlight")
+      console.log(this.notesActive)
+    });
+
+    //Keypress
     this.container.addEventListener("keydown", (event) => {
       if (event.keyCode == 37) {
         this.currentCell = [this.currentCell[0], this.currentCell[1] - 1];
@@ -84,11 +93,33 @@ export class Interface {
     for (let i = 0; i < this.numberButtons.length; i++) {
       this.numberButtons[i].addEventListener("click", () => {
 
-        //Put button number into current cell
         this.currentNumberWrapper =
           this.numberWrappers[this.currentCell[0]][this.currentCell[1]];
-        this.currentNumberWrapper.classList.remove("-hidden");
-        this.currentNumberWrapper.innerHTML = this.numberButtons[i].innerHTML
+
+        this.currentNoteGridCell =
+          this.noteGridCells[this.currentCell[0]][this.currentCell[1]];
+
+        this.currentNoteGridCellChild =
+          this.currentNoteGridCell
+            .querySelector(`:nth-child(${this.numberButtons[i].innerHTML})`);
+
+        //Put button number into current cell number wrapper and show the wrapper
+        if (!this.notesActive) {
+          this.currentNumberWrapper.classList.remove("-hidden");
+          this.currentNoteGridCell.classList.add("-hidden");
+          this.currentNumberWrapper.innerHTML = this.numberButtons[i].innerHTML
+        }
+
+        //Put the number into the note grid cell child and show the note grid
+        //If there is already a number, remove the number
+        if (this.notesActive && this.currentNoteGridCellChild.innerHTML == "") {
+          this.currentNoteGridCell.classList.remove("-hidden");
+          this.currentNumberWrapper.classList.add("-hidden");
+          this.currentNoteGridCellChild.innerHTML = this.numberButtons[i].innerHTML;
+        } else {
+          this.currentNoteGridCellChild.innerHTML = "";
+        }
+
 
       })
     }

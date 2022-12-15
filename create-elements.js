@@ -74,7 +74,7 @@ export class Creator {
       cells: this.cells,
       noteGridCells: this.noteGridCells,
       numberWrappers: this.numberWrappers,
-      noteGridCellInnerCells: this.noteGridCellsInnerCells,
+      noteGridCellInnerCells: this.noteGridCellInnerCells,
       numberButtons: this.numberButtons,
       eraseButton: this.eraseButton,
       notesButton: this.notesButton,

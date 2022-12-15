@@ -60,7 +60,7 @@ export class Sudoku {
           this.currentNumberWrapper =
             this.numberWrapper = this.nodes.numberWrappers[i][j];
 
-          this.currentNumberWrapper.classList.remove("sudoku___hidden");
+          this.currentNumberWrapper.classList.remove("-hidden");
         }
       }
     }
@@ -280,6 +280,12 @@ export class Sudoku {
         this.numberWrapper = this.nodes.numberWrappers[i][j];
         if (this.numberWrapper != null) {
           this.numberWrapper.innerHTML = this.gridRow[i][j].fin;
+        }
+        //Children of noteGridCell
+        this.noteGridCellChildNodes = this.nodes.noteGridCells[i][j].childNodes;
+        console.log(this.hey)
+        for (let k = 0; k < 9; k++) {
+          this.noteGridCellChildNodes[k].innerHTML = "";
         }
       }
     }
