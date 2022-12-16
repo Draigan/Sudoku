@@ -44,6 +44,8 @@ class Data {
   resetGrid() {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
+        this.gridRow[i][j].locked = true;
+        this.nodes.numberWrappers[i][j].innerHTML = "";
         this.gridRow[i][j].fin = null;
         this.gridRow[i][j].val = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       }
@@ -78,8 +80,8 @@ class Data {
           section: null,
           col: null,
           row: i,
-          fin: null
-
+          fin: null,
+          locked: true
         }
       }
     }
@@ -280,8 +282,8 @@ class Data {
       this.y = Math.floor(Math.random() * 9);
       this.square = this.gridRow[this.x][this.y];
 
-      if (this.square.fin == "") continue;
-      this.square.fin = "";
+      if (this.square.locked == false) continue;
+      this.square.locked = false;
       this.lockedSquaresCounter++;
     } while (this.lockedSquaresCounter < number);
 
@@ -292,7 +294,9 @@ class Data {
       for (let j = 0; j < 9; j++) {
         this.numberWrapper = this.nodes.numberWrappers[i][j];
         if (this.numberWrapper != null) {
-          this.numberWrapper.innerHTML = this.gridRow[i][j].fin;
+          if (this.gridRow[i][j].locked == true) {
+            this.numberWrapper.innerHTML = this.gridRow[i][j].fin;
+          }
         }
         //Children of noteGridCell
         this.noteGridCellChildNodes = this.nodes.noteGridCells[i][j].childNodes;
