@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -23,17 +24,33 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+  font-family: "Source Sans Pro", sans-serif;
+  border: 2px solid black;
 }
 
 .sudoku___board--cell {
   color: black;
-  border: 1px solid black;
   -webkit-user-select: none;
   /* Safari */
   -ms-user-select: none;
   /* IE 10 and IE 11 */
   user-select: none;
   /* Standard syntax */
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.sudoku___board--cell.-border-right {
+  border-right: 2px solid black;
+}
+
+.sudoku___board--cell.-border-bottom {
+  border-bottom: 2px solid black;
+}
+
+.sudoku___board--cell.-border-none {
+  border-bottom: 0px;
+  border-right: 0px;
 }
 
 .sudoku___board--number-wrapper {
@@ -42,7 +59,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
 }
 
 .sudoku___panel {
@@ -106,16 +123,20 @@ body {
   display: none;
 }
 
+.sudoku___board--number-wrapper.-colored {
+  color: teal;
+}
+
 .sudoku___board--note-grid.-hidden {
   display: none;
 }
 
 .sudoku___board--note-grid {
-  display: grid;
+  margin: auto;
   width: 100%;
   height: 100%;
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   justify-content: center;
   align-items: center;
 }
@@ -124,6 +145,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  line-height: 0;
 }
 
 .sudoku___board--cell.-highlight {

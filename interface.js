@@ -1,5 +1,5 @@
 export class Interface {
-  constructor(nodes, parenta) {
+  constructor(nodes, data) {
     this.container = nodes.container;
     this.board = nodes.board;
     this.cells = nodes.cells;
@@ -14,8 +14,9 @@ export class Interface {
     this.currentCell = [4, 4];
     this.highlight(4, 4);
 
-    this.test = parenta
-    console.log(this.test.gridRow)
+    this.data = data;
+    console.log(this.data.gridRow)
+    console.log(this.squareIsLocked())
     //Call event listeners
     this.eventListeners();
   }
@@ -51,6 +52,7 @@ export class Interface {
   }
   //Erase all content of cell 
   erase() {
+    if (this.squareIsLocked()) return;
     this.currentNumberWrapper =
       this.numberWrappers[this.currentCell[0]][this.currentCell[1]];
 
@@ -103,6 +105,8 @@ export class Interface {
     for (let i = 0; i < this.numberButtons.length; i++) {
       this.numberButtons[i].addEventListener("click", () => {
 
+        if (this.squareIsLocked()) return;
+
         this.currentNumberWrapper =
           this.numberWrappers[this.currentCell[0]][this.currentCell[1]];
 
@@ -117,6 +121,7 @@ export class Interface {
         if (!this.notesActive) {
           this.currentNumberWrapper.classList.remove("-hidden");
           this.currentNoteGridCell.classList.add("-hidden");
+          this.currentNumberWrapper.classList.add("-colored");
           this.currentNumberWrapper.innerHTML = this.numberButtons[i].innerHTML
         }
 
@@ -163,4 +168,9 @@ export class Interface {
       this.currentCell[0] = 8;
     }
   }
+
+  squareIsLocked() {
+    return this.data.gridRow[this.currentCell[0]][this.currentCell[1]].locked ? true : false
+  }
+
 }

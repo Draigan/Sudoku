@@ -35,6 +35,16 @@ export class Creator {
           this.noteGridCellInnerCells[k] =
             this.createNode(this.noteGridCells[i][j], "sudoku___note-grid--cell");
         }
+        //Draw the inner borders 
+        if (j != 0 && j == 2 || j == 5) {
+          this.cells[i][j].classList.add("-border-right")
+        }
+        if (i != 0 && i == 2 || i == 5) {
+          this.cells[i][j].classList.add("-border-bottom")
+        }
+        if (i == 8) {
+          this.cells[i][j].classList.add("-border-bottom-right-none")
+        }
       }
     }
 
