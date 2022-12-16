@@ -1,11 +1,9 @@
 import { Creator } from "./create-elements.js"
 import { Interface } from "./interface.js"
 
-export class Sudoku {
-  constructor(element) {
-    this.creator = new Creator(element);
-    this.nodes = this.creator.nodes();
-    this.interface = new Interface(this.nodes);
+class Data {
+  constructor(element, nodes) {
+    this.nodes = nodes;
     this.gridRow = [];
     this.sectionZero = [];
     this.sectionOne = [];
@@ -81,6 +79,7 @@ export class Sudoku {
           col: null,
           row: i,
           fin: null
+
         }
       }
     }
@@ -274,7 +273,21 @@ export class Sudoku {
       }
     }
   }
+  chooseEmptySquares(number) {
+    this.lockedSquaresCounter = 0;
+    do {
+      this.x = Math.floor(Math.random() * 9);
+      this.y = Math.floor(Math.random() * 9);
+      this.square = this.gridRow[this.x][this.y];
+
+      if (this.square.fin == "") continue;
+      this.square.fin = "";
+      this.lockedSquaresCounter++;
+    } while (this.lockedSquaresCounter < number);
+
+  }
   refreshUI() {
+    this.chooseEmptySquares(52);
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         this.numberWrapper = this.nodes.numberWrappers[i][j];
@@ -283,7 +296,6 @@ export class Sudoku {
         }
         //Children of noteGridCell
         this.noteGridCellChildNodes = this.nodes.noteGridCells[i][j].childNodes;
-        console.log(this.hey)
         for (let k = 0; k < 9; k++) {
           this.noteGridCellChildNodes[k].innerHTML = "";
         }
@@ -299,3 +311,12 @@ export class Sudoku {
   }
 }
 
+//Controller
+export class Sudoku {
+  constructor(element) {
+    this.creator = new Creator(element);
+    this.nodes = this.creator.nodes();
+    this.data = new Data(element, this.nodes)
+    this.interface = new Interface(this.nodes, this.data);
+  }
+}

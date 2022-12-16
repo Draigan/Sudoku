@@ -1,5 +1,5 @@
 export class Interface {
-  constructor(nodes) {
+  constructor(nodes, parenta) {
     this.container = nodes.container;
     this.board = nodes.board;
     this.cells = nodes.cells;
@@ -10,12 +10,12 @@ export class Interface {
     this.noteGridCellInnerCells = nodes.noteGridCellInnerCells;
     this.noteGridCells = nodes.noteGridCells;
     this.notesActive = false;
-
-    console.log(this.noteGridCellsInnerCells)
-    //This represents the coordinates of the cell that is currently clicked
+    //This represents the coordinates of the cell that is currently clicked;
     this.currentCell = [4, 4];
     this.highlight(4, 4);
 
+    this.test = parenta
+    console.log(this.test.gridRow)
     //Call event listeners
     this.eventListeners();
   }
@@ -53,7 +53,17 @@ export class Interface {
   erase() {
     this.currentNumberWrapper =
       this.numberWrappers[this.currentCell[0]][this.currentCell[1]];
+
+    this.currentNoteGridCell =
+      this.noteGridCells[this.currentCell[0]][this.currentCell[1]];
+
+    this.currentNoteGridCellInnerCells = this.currentNoteGridCell.childNodes;
+
     this.currentNumberWrapper.classList.add("-hidden");
+    this.currentNoteGridCell.classList.add("-hidden");
+    for (let i = 0; i < this.currentNoteGridCellInnerCells.length; i++) {
+      this.currentNoteGridCellInnerCells[i].innerHTML = "";
+    }
   }
 
   eventListeners() {
@@ -62,7 +72,6 @@ export class Interface {
     this.notesButton.addEventListener("click", () => {
       this.notesActive = !this.notesActive;
       this.notesButton.classList.toggle("-highlight")
-      console.log(this.notesActive)
     });
 
     //Keypress
@@ -74,6 +83,7 @@ export class Interface {
 
       }
       if (event.keyCode == 39) {
+        console.log(this.test)
         this.currentCell = [this.currentCell[0], this.currentCell[1] + 1];
         this.keypressWrapAround();
         this.highlight(this.currentCell[0], this.currentCell[1]);

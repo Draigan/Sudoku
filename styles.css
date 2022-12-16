@@ -26,12 +26,6 @@ body {
 }
 
 .sudoku___board--cell {
-  font-size: 1 em;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
   color: black;
   border: 1px solid black;
   -webkit-user-select: none;
@@ -40,6 +34,15 @@ body {
   /* IE 10 and IE 11 */
   user-select: none;
   /* Standard syntax */
+}
+
+.sudoku___board--number-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
 }
 
 .sudoku___panel {
@@ -110,9 +113,17 @@ body {
 .sudoku___board--note-grid {
   display: grid;
   width: 100%;
+  height: 100%;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.sudoku___note-grid--cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sudoku___board--cell.-highlight {
