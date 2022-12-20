@@ -7,6 +7,7 @@ export class Interface {
     this.eraseButton = nodes.eraseButton;
     this.numberButtons = nodes.numberButtons;
     this.numberWrappers = nodes.numberWrappers;
+    this.solutionButton = nodes.solutionButton;
     this.noteGridCellInnerCells = nodes.noteGridCellInnerCells;
     this.noteGridCells = nodes.noteGridCells;
     this.notesActive = false;
@@ -14,9 +15,10 @@ export class Interface {
     this.currentCell = [4, 4];
     this.highlight(4, 4);
 
+
     this.data = data;
     console.log(this.data.gridRow)
-    console.log(this.squareIsLocked())
+    console.log(this.numberWrappers[0][0])
     //Call event listeners
     this.eventListeners();
   }
@@ -65,6 +67,15 @@ export class Interface {
     this.currentNoteGridCell.classList.add("-hidden");
     for (let i = 0; i < this.currentNoteGridCellInnerCells.length; i++) {
       this.currentNoteGridCellInnerCells[i].innerHTML = "";
+    }
+  }
+  // Fetch gridRow data from Data and display it. 
+  showSolution() {
+
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        this.numberWrappers[i][j].innerHTML = this.data.gridRow[i][j].fin;
+      }
     }
   }
 
@@ -140,6 +151,9 @@ export class Interface {
     }
     this.eraseButton.addEventListener("click", () => {
       this.erase();
+    })
+    this.solutionButton.addEventListener("click", () => {
+      this.showSolution();
     })
     this.notesButton.addEventListener("click", () => {
     })

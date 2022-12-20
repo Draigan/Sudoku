@@ -46,6 +46,7 @@ class Data {
       for (let j = 0; j < 9; j++) {
         this.gridRow[i][j].locked = true;
         this.nodes.numberWrappers[i][j].innerHTML = "";
+        this.nodes.numberWrappers[i][j].classList.remove("-colored")
         this.gridRow[i][j].fin = null;
         this.gridRow[i][j].val = [0, 1, 2, 3, 4, 5, 6, 7, 8];
       }

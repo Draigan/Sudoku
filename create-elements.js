@@ -54,6 +54,9 @@ export class Creator {
       this.createNode(this.panel, "sudoku___panel--button-new-game");
     this.newGameButton.innerHTML = "New Game";
 
+    this.solutionButton =
+      this.createNode(this.panel, "sudoku___panel--button-solution");
+    this.solutionButton.innerHTML = "Solution";
     this.numberButtons = [];
     for (let i = 1; i <= 9; i++) {
       this.numberButton = this.createNode(this.panel, "sudoku___panel--button");
@@ -88,7 +91,8 @@ export class Creator {
       numberButtons: this.numberButtons,
       eraseButton: this.eraseButton,
       notesButton: this.notesButton,
-      newGameButton: this.newGameButton
+      newGameButton: this.newGameButton,
+      solutionButton: this.solutionButton
     };
 
     return this.nodesPackage;

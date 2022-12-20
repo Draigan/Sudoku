@@ -111,6 +111,11 @@ body {
   grid-column: span 3;
 }
 
+.sudoku___panel--button-solution {
+  width: 100%;
+  grid-column: span 3;
+}
+
 .sudoku___panel--button-notes.-highlight {
   background-color: #66b2b2;
 }
@@ -124,7 +129,7 @@ body {
 }
 
 .sudoku___board--number-wrapper.-colored {
-  color: teal;
+  color: #174457;
 }
 
 .sudoku___board--note-grid.-hidden {
